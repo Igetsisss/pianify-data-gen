@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Data Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .song-data {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .copy-button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Song Data Generator</h1>
+        <form id="songForm">
+            <label for="index">Index:</label>
+            <input type="text" id="index" required>
+            
+            <label for="songName">Song Name:</label>
+            <input type="text" id="songName" required>
+            
+            <label for="songImg">Song Image URL:</label>
+            <input type="text" id="songImg" required>
+            
+            <label for="songArtist">Song Artist:</label>
+            <input type="text" id="songArtist" required>
+            
+            <label for="trackTime">Track Time:</label>
+            <input type="text" id="trackTime" required>
+            
+            <button type="button" onclick="generateData()">Generate Data</button>
+        </form>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        let songsData = [];
+
+        function generateData() {
+            const index = document.getElementById('index').value;
+            const songName = document.getElementById('songName').value;
+            const songImg = document.getElementById('songImg').value;
+            const songArtist = document.getElementById('songArtist').value;
+            const trackTime = document.getElementById('trackTime').value;
+
+            const data = {
+                index,
+                songName,
+                songimg: songImg,
+                songArtist,
+                trackTime,
+            };
+
+            songsData.push(data);
+
+            updateOutput();
+            clearForm();
+        }
+
+        function updateOutput() {
+            const output = document.getElementById('output');
+            output.innerHTML = "<h2>Songs Data:</h2>";
+
+            songsData.forEach((song, index) => {
+                const songDataElement = document.createElement('div');
+                songDataElement.classList.add('song-data');
+
+                songDataElement.innerHTML = `<pre>Song ${index + 1}:\n${JSON.stringify(song, null, 2)}</pre>`;
+
+                const copyButton = document.createElement('button');
+                copyButton.classList.add('copy-button');
+                copyButton.textContent = 'Copy';
+                copyButton.onclick = function () {
+                    copyToClipboard(JSON.stringify(song, null, 2), index + 1);
+                };
+
+                songDataElement.appendChild(copyButton);
+                output.appendChild(songDataElement);
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('songForm').reset();
+        }
+
+        function copyToClipboard(text, songNumber) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert(`Song ${songNumber} data copied to clipboard!`);
+        }
+    </script>
+</body>
+</html>
