@@ -32,10 +32,10 @@ The generated data will be in the following format:
 }
 ```
 
-##Multiple Songs
+## Multiple Songs
 You can generate data for multiple songs sequentially, and the app will keep track of each song's data. Each set of song data will be displayed with a "Copy" button for easy copying.
 
-##Run the App Locally
+## Run the App Locally
 If you want to run the app locally, download the provided HTML file and open it in a web browser. The app will guide you through the process of generating song data.
 
 Feel free to use this Song Data Generator to organize and manage your favorite music collection!
