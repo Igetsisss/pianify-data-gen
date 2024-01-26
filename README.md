@@ -1,4 +1,4 @@
-# Song Data Generator
+# Pianify Song Data Generator
 
 Welcome to the Song Data Generator, a web app designed to help you easily create and manage data for your favorite songs. Made for Pianify but can be used for any purpose by fork.
 
